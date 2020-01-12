@@ -20,45 +20,45 @@ currentLevel=0
 # h=hard
 problems=[
     ''' find the value of x:
-        {2x + 6y = 20
-        {2x + 3y = 11
-       A) x = 6 B) x = 2    C) x = 3    D) x = 1 
+        {2x+6y =20
+        {2x+3y =11
+       A)x=6  B)x=2  C)x=3  D)x=1 
     ''',
     ''' what is equal to 
-        3 (x + 5) - 6
-       A) 3x - 3    B) 3x - 1   C) 3x + 9   D) 15x-6
+        3(x+5)-6
+       A)3x-3  B)3x-1  C)3x+9  D)15x-6
        ''',
     ''' what is the solution of
-        {x = y - 3
-        {(x / 2) + 2y = 6
-       A) (-3 , 0)    B) (0 , 3)    C) (6 , -3)   D) (36 , -6)
+        {x=y-3
+        {(x/2)+2y=6
+       A)(-3,0)  B)(0,3)  C)(6,-3)  D)(36,-6)
     ''',
     ''' what is equal to 
-        (5 + 12i) - (9i^2 - 6i)
-       A) -14 - 18i     B) -4 - 6i  C) 4 + 6i   D) 14 + 18i
+        (5+12i)-(9i^2-6i)
+       A)-14-18i  B)-4-6i  C)4+6i  D)14+18i
     ''',
     ''' what is f(-1)
-        f(x)= (x^2 - 6x + 3) / (x - 1)
-       A) -5    B) -2   C) 2    D) 5
+        f(x)=(x^2-6x+3)/(x-1)
+       A)-5  B)-2  C)2  D)5
     ''',
     ''' what is equal to 
-        x^2 + 6x + 4
-       A) (x + 3) ^ 2 + 5 B) (x + 3) ^ 2 - 5    C) (x - 3) ^ 2 + 5    D) (x - 3) ^ 2 - 5
+        x^2+6x+4
+       A)(x+3)^2+5  B)(x+3)^2-5  C)(x-3)^2+5  D)(x-3)^2-5
        ''',
     ''' what is equal to
-        (x^2 - 2x - 5) / (x - 3)
-       A) x - 5 - ((20) / (x - 3))    B) x - 5 - ((10) / (x - 3))   C) x + 1 - ((8) / (x - 3))    D) x + 1 - ((2) / (x - 3))  
+        (x^2-2x-5)/(x-3)
+       A)x-5-((20)/(x-3))  B)x-5-((10)/(x-3))  C)x+1-((8)/(x-3))  D)x+1-((2)/(x-3))  
        ''',
-    ''' what is x + 4 if
-        2x + 8 = 16
-       A) 8 B) 2    C) 12   D) 4''',
+    ''' what is x+4 if
+        2x+8=16
+       A)8  B)2  C)12  D)4''',
     ''' what is p if
-        2 (p + 1) + 8 (p - 1) = 5p
-       A) 1.8   B) 1.2  C) 0.8  D) 1.6''',
+        2(p+1)+8(p-1)=5p
+       A)1.8  B)1.2  C)0.8  D)1.6''',
     ''' find the value of y:
-        {(1 / 2)(2x + y ) = (21 / 2)
-        {y = 2x
-       A) 5.57  B) 5.52 C) 5.25 D) 5.75'''
+        {(1/2)(2x+y)=(21/2)
+        {y=2x
+       A)5.57  B)5.52  C)5.25  D)5.75'''
 ]
 solutions=['4', '3', '2', '4', '1', '2', '4', '1', '2', '3']
 difficulty=['m', 'e', 'm', 'h', 'h', 'h', 'h', 'e', 'e', 'm']
@@ -114,11 +114,12 @@ def finalScreen():
         groupLabel.pack()
 
 #This function takes in user input and processes it.
+# It also deletes the text in the entry widget for the next question.
 # It adds the score depending on difficulty to the correct group.
 # Finally, it calls question_setup after increasing currentLevel to show the next question.
 #If the input is not valid or is empty, the function will stop.
 def processInput(event):
-    global currentLevel
+    global currentLevel, enterInput
     try:
         input=enterInput.get()
         if input=='':
@@ -126,6 +127,7 @@ def processInput(event):
         groupLetter=input[0]
         groupIndex=groupNames.index(groupLetter)
         answer=input[1]
+        enterInput.delete(0, 'end')
         if currentLevel>levels-1:
             return
         if solutions[currentLevel] != answer:
@@ -143,9 +145,10 @@ def processInput(event):
     except:
         pass
 
-#A GUI window is created using Tkinter.
+#A non-resizable small GUI window is created using Tkinter.
 tk=Tk()
-tk.geometry("800x800")
+tk.geometry("500x150")
+tk.resizable(False, False)
 
 #This group label is shown at the beginning to ask how many groups there are.
 groupLabel=Label(tk, text="How many groups are there")
